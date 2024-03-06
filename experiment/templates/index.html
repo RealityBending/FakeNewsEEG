@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <!-- Title shown in tab -->
+        <title>Nanyang Technological University - Research</title>
+
+        <!-- Load all necessary plugins -->
+        <script src="https://unpkg.com/jspsych"></script>
+        <script src="https://unpkg.com/@jspsych/plugin-browser-check"></script>
+        <script src="https://unpkg.com/@jspsych/plugin-html-button-response"></script>
+        <script src="https://unpkg.com/@jspsych/plugin-survey-text"></script>
+        <script src="https://unpkg.com/@jspsych/plugin-survey-likert"></script>
+        <script src="https://unpkg.com/@jspsych/plugin-survey-multi-choice"></script>
+        <script src="https://unpkg.com/@jspsych/plugin-survey-multi-select"></script>
+        <script src="https://cdn.jsdelivr.net/gh/jspsych/jspsych@jspsych@7.0.0/examples/js/webgazer/webgazer.js"></script>
+        <script src="https://unpkg.com/@jspsych/extension-webgazer@1.0.3"></script>
+
+        <!-- To save data via DataPipe (for online experiments) -->
+        <script src="https://unpkg.com/@jspsych-contrib/plugin-pipe@0.3"></script>
+
+        <!-- Other utils -->
+        <script src="https://realitybending.github.io/JSmisc/jspsych_extensions/plugin-multiple-slider.js"></script>
+        <script src="https://realitybending.github.io/JSmisc/questionnaires/ipip6.js"></script>
+        <script src="https://realitybending.github.io/JSmisc/questionnaires/pid5.js"></script>
+
+        <!-- Load parameters here (always below the loading of the JsPsych) -->
+        <script src="/static/demographics.js"></script>
+        <script src="/static/stimuli.js"></script>
+        <script src="/static/fakenews.js"></script>
+        <script src="/static/questionnaires.js"></script>
+
+        <link href="https://unpkg.com/jspsych/css/jspsych.css" rel="stylesheet" type="text/css" />
+        <style>
+            .narrow-text {
+                max-width: 50%;
+            }
+        </style>
+    </head>
+
+    <body></body>
+
+    <script>
+        // Initialize experiment =================================================
+        var timeline = []
+
+        var jsPsych = initJsPsych({
+            extensions: [
+                {type: jsPsychExtensionWebgazer}
+            ]
+            // on_finish: function () {
+            //     jsPsych.data.displayData("json") // Display data in browser
+            // },
+        })
+
+        // Session and Participant Info ----------------------------------------
+        // timeline.push(demographics_quotahit(
+        //         "https://realitybending.github.io/FakeNewsValidation/experiment/?exp=end"
+        //     ))
+        timeline.push(demographics_browser_info)
+        timeline.push(demographics_consent)
+        timeline.push(demographics_info)
+        timeline.push(questionnaire_media_frequency)
+
+        // Questionnaires ======================================================
+
+        // TODO: Add MIST? Conspiracy beliefs? Lie Scale?
+        var Qs = [questionnaire_bait, questionnaire_ipip6, questionnaire_pid5]
+        Qs = jsPsych.randomization.shuffle(Qs) // Randomize order
+
+        // Start with first questionnaire
+        // timeline.push(Qs[0])
+
+        // Fake News ===========================================================
+        // timeline.push(fakenews_instructions1)
+        // timeline.push(fakenews_block1)
+        // timeline.push(Qs[1])
+        // timeline.push(Qs[2])
+        // timeline.push(fakenews_instructions2)
+        // timeline.push(fakenews_block2)
+
+        // End =================================================================
+        timeline.push(demographics_debrief)
+        timeline.push(demographics_paynow)
+        timeline.push(demographics_waitdatasaving)
+
+        // timeline.push({
+        //     type: jsPsychPipe,
+        //     action: "save",
+        //     experiment_id: "K7p0MzwHqi2D", // This in generated in the DataPipe interface
+        //     filename: `${jsPsych.randomization.randomID(10)}.csv`,
+        //     data_string: () => jsPsych.data.get().csv(),
+        // })
+
+        timeline.push(
+            demographics_endscreen(
+                "https://realitybending.github.io/FakeNewsValidation/experiment/?exp=end"
+            )
+        ) // Snowball link
+
+        /* ----------------- Run the timeline ----------------- */
+        jsPsych.run(timeline)
+        // jsPsych.simulate(timeline, "data-only")
+    </script>
+</html>
