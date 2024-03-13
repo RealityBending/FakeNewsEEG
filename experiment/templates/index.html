@@ -12,8 +12,9 @@
         <script src="https://unpkg.com/@jspsych/plugin-survey-likert"></script>
         <script src="https://unpkg.com/@jspsych/plugin-survey-multi-choice"></script>
         <script src="https://unpkg.com/@jspsych/plugin-survey-multi-select"></script>
-        <script src="https://cdn.jsdelivr.net/gh/jspsych/jspsych@jspsych@7.0.0/examples/js/webgazer/webgazer.js"></script>
-        <script src="https://unpkg.com/@jspsych/extension-webgazer@1.0.3"></script>
+        <script src="https://unpkg.com/@jspsych/plugin-html-keyboard-response@1.1.3"></script>
+        <script src="https://unpkg.com/@jspsych/plugin-fullscreen@1.2.1"></script>
+
 
         <!-- To save data via DataPipe (for online experiments) -->
         <script src="https://unpkg.com/@jspsych-contrib/plugin-pipe@0.3"></script>
@@ -44,12 +45,16 @@
         var timeline = []
 
         var jsPsych = initJsPsych({
-            extensions: [
-                {type: jsPsychExtensionWebgazer}
-            ]
             // on_finish: function () {
             //     jsPsych.data.displayData("json") // Display data in browser
             // },
+        })
+
+        // Fullscreen mode
+        timeline.push({
+            type: jsPsychFullscreen,
+            fullscreen_mode: true,
+            delay_after: 0,
         })
 
         // Session and Participant Info ----------------------------------------
@@ -58,8 +63,8 @@
         //     ))
         timeline.push(demographics_browser_info)
         timeline.push(demographics_consent)
-        timeline.push(demographics_info)
-        timeline.push(questionnaire_media_frequency)
+        // timeline.push(demographics_info)
+        // timeline.push(questionnaire_media_frequency)
 
         // Questionnaires ======================================================
 
@@ -71,12 +76,12 @@
         // timeline.push(Qs[0])
 
         // Fake News ===========================================================
-        // timeline.push(fakenews_instructions1)
-        // timeline.push(fakenews_block1)
+        timeline.push(fakenews_instructions1)
+        timeline.push(fakenews_block1)
         // timeline.push(Qs[1])
         // timeline.push(Qs[2])
-        // timeline.push(fakenews_instructions2)
-        // timeline.push(fakenews_block2)
+        timeline.push(fakenews_instructions2)
+        timeline.push(fakenews_block2)
 
         // End =================================================================
         timeline.push(demographics_debrief)
