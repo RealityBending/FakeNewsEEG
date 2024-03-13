@@ -74,22 +74,33 @@ var fakenews_instructions2 = {
 
 // Trials ==========================================================
 
-var init_camera_trial = {
-    type: jsPsychWebgazerInitCamera
+// Fixation cross
+var fixation = {
+    type: jsPsychHtmlKeyboardResponse,
+    stimulus: '<div style="font-size:60px;">+</div>',
+    choices: "NO_KEYS",
+    trial_duration: 500,
+    // trial_duration: 0,  // for testing
+    // on_start: function () {
+    //     ; (document.body.style.cursor = "none"),
+    //         (document.querySelector(
+    //             "#jspsych-progressbar-container"
+    //         ).style.display = "none")
+    // },
+    save_trial_parameters: {
+        trial_duration: true,
+    },
+    data: { screen: "fixation" },
 }
 
-var calibration_trial = {
-    type: jsPsychWebgazerCalibrate,
-    calibration_points: [[25,50], [50,50], [75,50], [50,25], [50,75]],
-    calibration_mode: 'click'
+// Marker
+var marker_position = [0, 0, 200, 200] // [0, 0, 100, 100]
+function create_marker(marker_position, color = "black") {
+    const html = `<div id="marker" style="position: absolute; background-color: ${color};\
+    left:${marker_position[0]}; top:${marker_position[1]}; \
+    width:${marker_position[2]}px; height:${marker_position[3]}px";></div>`
+    document.querySelector("body").insertAdjacentHTML("beforeend", html)
 }
-
-var validation_trial = {
-    type: jsPsychWebgazerValidate,
-    validation_points: [[-200,200], [200,200],[-200,-200],[200,-200]],
-    validation_point_coordinates: 'center-offset-pixels',
-    roi_radius: 100
-}  
 
 var fakenews_text = {
     type: jsPsychHtmlButtonResponse,
@@ -102,8 +113,12 @@ var fakenews_text = {
     },
     choices: ["I Read"],
     data: { screen: "fakenews_text" },
+    on_load: function() {
+        create_marker(marker_position)
+    },
     on_finish: function () {
         trial_number++
+        document.querySelector("#marker").remove()
     },
 }
 
@@ -231,7 +246,9 @@ var fakenews_ratings_appraisal = {
 // TODO: do 2 blocks with questionnaires in between
 var fakenews_block1 = {
     timeline: [
+        fixation,
         fakenews_text,
+        fixation,
         fakenews_questions,
         fakenews_ratings_reality,
         fakenews_ratings_appraisal,
@@ -242,7 +259,9 @@ var fakenews_block1 = {
 
 var fakenews_block2 = {
     timeline: [
+        fixation,
         fakenews_text,
+        fixation,
         fakenews_questions,
         fakenews_ratings_reality,
         fakenews_ratings_appraisal,
