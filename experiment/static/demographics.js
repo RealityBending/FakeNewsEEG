@@ -126,12 +126,12 @@ var demographics_debrief = {
     type: jsPsychSurveyMultiChoice,
     preamble: "<b>It's done!</b> Just before we end, please answer the following questions:",
     questions: [
-        {
-            prompt: "Have you previously taken part in a study involving the creation of fake and real news?",
-            options: ["Yes", "No"],
-            name: "generation_participation",
-            required: true,
-        },
+        // {
+        //     prompt: "Have you previously taken part in a study involving the creation of fake and real news?",
+        //     options: ["Yes", "No"],
+        //     name: "generation_participation",
+        //     required: true,
+        // },
         {
             prompt: "In general, would you consider yourself to be good at knowing whether a news is real or fake?",
             options: [
