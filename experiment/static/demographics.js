@@ -118,6 +118,9 @@ var demographics_endscreen = function (
             "<p><b>You can safely close the tab now.</b></p>",
         choices: ["End"],
         data: { screen: "endscreen" },
+        on_finish: function() {
+            exportToCSV()
+        }
     }
 }
 
