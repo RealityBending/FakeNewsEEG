@@ -142,8 +142,10 @@ var fakenews_text = {
     data: { screen: "fakenews_text" },
     on_load: function() {
         create_marker(marker_position)
+        startRecording(jsPsych.timelineVariable("excerpt_num"))
     },
     on_finish: function () {
+        stopRecording()
         trial_number++
         document.querySelector("#marker").remove()
     },
