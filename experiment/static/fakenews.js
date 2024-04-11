@@ -143,11 +143,13 @@ var fakenews_text = {
     on_load: function() {
         create_marker(marker_position)
         startRecording(jsPsych.timelineVariable("excerpt_num"))
+        startEyeTracker(jsPsych.timelineVariable("excerpt_num"))
     },
     on_finish: function () {
         stopRecording()
         trial_number++
         document.querySelector("#marker").remove()
+        pauseEyeTracker()
     },
 }
 // Attention check qn
@@ -282,7 +284,7 @@ var fakenews_block1 = {
         fakenews_ratings_reality,
         fakenews_ratings_appraisal,
     ],
-    timeline_variables: stimuli_list.slice(0, 16),
+    timeline_variables: stimuli_list.slice(0, 2),
     randomize_order: true,
 }
 
