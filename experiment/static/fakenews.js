@@ -85,6 +85,9 @@ var fakenews_instructions1 = {
         "<li><b>Relevance</b>: To what extent was the news about something relevant to you, either because it's something you care about, or something that might impact you directly.</li></ul>" +
         "<p style='text-align: left'> Please read the <b>entire</b> news excerpt, and read each excerpt as you would do with a regular news article. Knowing the answer can sometimes be <b>very hard</b>, so go with your gut feelings! You can also give more or less extreme responses depending on how <b>confident</b> you are. You will be tasked to read XX excerpts in total.</p>",
     choices: ["Ready"],
+    // on_load: function () {
+    //     checkEyeTracker()
+    // },
     data: { screen: "fakenews_instructions1" },
 }
 
@@ -101,12 +104,22 @@ var fakenews_instructions2 = {
 
 // Trials ==========================================================
 
+function addBackgroundGrey() {
+    // Add the CSS class to the body element
+    document.body.classList.add('grey-background');
+}
+
+function removeBackgroundGrey() {
+    // Add the CSS class to the body element
+    document.body.classList.remove('grey-background');
+}
+
 // Fixation cross
 var fixation = {
     type: jsPsychHtmlKeyboardResponse,
     stimulus: '<div style="font-size:60px;">+</div>',
     choices: "NO_KEYS",
-    trial_duration: 500,
+    trial_duration: 1500,
     // trial_duration: 0,  // for testing
     // on_start: function () {
     //     ; (document.body.style.cursor = "none"),
@@ -114,6 +127,9 @@ var fixation = {
     //             "#jspsych-progressbar-container"
     //         ).style.display = "none")
     // },
+    on_load: function () {
+        addBackgroundGrey()
+    },
     save_trial_parameters: {
         trial_duration: true,
     },
@@ -131,11 +147,11 @@ function create_marker(marker_position, color = "black") {
 
 var fakenews_text = {
     type: jsPsychHtmlButtonResponse,
-    css_classes: ["narrow-text"],
+    css_classes: ["trial-text"],
     stimulus: function () {
         // var title = "<h2>News " + trial_number + " / " + stimuli_list.length + "</h2>"
         var stim =
-            "<p style='background-color: #f2f2f2'>" + jsPsych.timelineVariable("stimulus") + "</p>" + "<p style='font-size:0%'>" + jsPsych.timelineVariable("excerpt_num") + "</p>"
+            "<p style='background-color: #808080'>" + jsPsych.timelineVariable("stimulus") + "</p>" + "<p style='font-size:0%'>" + jsPsych.timelineVariable("excerpt_num") + "</p>"
         return stim
     },
     choices: ["I Read"],
@@ -214,7 +230,9 @@ var fakenews_ratings_reality = {
             slider_start: 0.5,
         },
     ]),
-    // require_movement: true,
+    on_load: function () {
+        removeBackgroundGrey()
+    },
     require_movement: true,
     data: {
         screen: "fakenews_ratings_reality",
@@ -284,7 +302,7 @@ var fakenews_block1 = {
         fakenews_ratings_reality,
         fakenews_ratings_appraisal,
     ],
-    timeline_variables: stimuli_list.slice(0, 2),
+    timeline_variables: stimuli_list.slice(0, 16),
     randomize_order: true,
 }
 

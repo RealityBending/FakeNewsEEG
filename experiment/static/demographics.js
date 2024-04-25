@@ -120,6 +120,7 @@ var demographics_endscreen = function (
         data: { screen: "endscreen" },
         on_finish: function() {
             exportToCSV()
+            saveEyeTrackingData()
         }
     }
 }
