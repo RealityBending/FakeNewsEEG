@@ -67,7 +67,12 @@ if (ticks_ai[1] == "Human") {
     var ticks_ai_type = "Positive_AI"
 }
 
-// Instructions
+// Instructions - start of study before first block
+function addBackgroundGrey() {
+    // Add the CSS class to the body element
+    document.body.classList.add('grey-background');
+}
+
 var fakenews_instructions1 = {
     type: jsPsychHtmlButtonResponse,
     css_classes: ["narrow-text"],
@@ -83,36 +88,25 @@ var fakenews_instructions1 = {
         '<li><b>Emotionality</b>: To what extent was the news "emotional". Did the news trigger any feelings in you while reading it?</li>' +
         "<li><b>Importance</b>: Assuming the news is true, to what extent is it important in general for the world (e.g., a matter of national concern)?</li>" +
         "<li><b>Relevance</b>: To what extent was the news about something relevant to you, either because it's something you care about, or something that might impact you directly.</li></ul>" +
-        "<p style='text-align: left'> Please read the <b>entire</b> news excerpt, and read each excerpt as you would do with a regular news article. Knowing the answer can sometimes be <b>very hard</b>, so go with your gut feelings! You can also give more or less extreme responses depending on how <b>confident</b> you are. You will be tasked to read XX excerpts in total.</p>",
+        "<p style='text-align: left'> Please read the <b>entire</b> news excerpt, and read each excerpt as you would do with a regular news article. Knowing the answer can sometimes be <b>very hard</b>, so go with your gut feelings! You can also give more or less extreme responses depending on how <b>confident</b> you are. You will be tasked to read 32 excerpts in total.</p>",
     choices: ["Ready"],
-    // on_load: function () {
-    //     checkEyeTracker()
-    // },
+    on_load: function () {
+        addBackgroundGrey()
+    },
     data: { screen: "fakenews_instructions1" },
 }
 
-// Instructions
+// Instructions - end of first block, before start of second block
 var fakenews_instructions2 = {
     type: jsPsychHtmlButtonResponse,
     css_classes: ["narrow-text"],
     stimulus:
-        "<h1>News judgment</h1>" +
-        "<p Now, we would like you to rate some new news again, just as you did in the previous phase.</p>",
+        "<p> You have completed the first half of the study. We will perform another re-calibration of the eye-tracker.</p><br />Please click 'Ready' to continue with the second half of the study.",
     choices: ["Ready"],
     data: { screen: "fakenews_instructions2" },
 }
 
 // Trials ==========================================================
-
-function addBackgroundGrey() {
-    // Add the CSS class to the body element
-    document.body.classList.add('grey-background');
-}
-
-function removeBackgroundGrey() {
-    // Add the CSS class to the body element
-    document.body.classList.remove('grey-background');
-}
 
 // Fixation cross
 var fixation = {
@@ -230,9 +224,6 @@ var fakenews_ratings_reality = {
             slider_start: 0.5,
         },
     ]),
-    on_load: function () {
-        removeBackgroundGrey()
-    },
     require_movement: true,
     data: {
         screen: "fakenews_ratings_reality",

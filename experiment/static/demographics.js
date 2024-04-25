@@ -126,6 +126,12 @@ var demographics_endscreen = function (
 }
 
 // Demographic debrief
+
+function removeBackgroundGrey() {
+    // Add the CSS class to the body element
+    document.body.classList.remove('grey-background');
+}
+
 var demographics_debrief = {
     type: jsPsychSurveyMultiChoice,
     preamble: "<b>It's done!</b> Just before we end, please answer the following questions:",
@@ -149,6 +155,9 @@ var demographics_debrief = {
             required: true,
         },
     ],
+    on_load: function () {
+        removeBackgroundGrey()
+    },
     data: { screen: "demographics_debrief" },
 }
 
