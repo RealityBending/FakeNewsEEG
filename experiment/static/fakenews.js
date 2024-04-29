@@ -75,7 +75,7 @@ function addBackgroundGrey() {
 
 var fakenews_instructions1 = {
     type: jsPsychHtmlButtonResponse,
-    css_classes: ["narrow-text"],
+    css_classes: ["trial-text"],
     stimulus:
         "<h1>Instructions</h1>" +
         "<p style='text-align: left'>In this experiment, we are interested in how you judge and perceive different short <b>news excerpts</b>.</p>" +
@@ -99,9 +99,9 @@ var fakenews_instructions1 = {
 // Instructions - end of first block, before start of second block
 var fakenews_instructions2 = {
     type: jsPsychHtmlButtonResponse,
-    css_classes: ["narrow-text"],
+    css_classes: ["trial-text"],
     stimulus:
-        "<p> You have completed the first half of the study. We will perform another re-calibration of the eye-tracker.</p><br />Please click 'Ready' to continue with the second half of the study.",
+        "<p> You have completed the first half of the study. We will perform another re-calibration of the eye-tracker.</p><br />When instructed by the experimenter, please click 'Ready' to continue with the second half of the study.",
     choices: ["Ready"],
     data: { screen: "fakenews_instructions2" },
 }
