@@ -73,6 +73,22 @@ function addBackgroundGrey() {
     document.body.classList.add('grey-background');
 }
 
+// Marker
+var marker_position = [0, 0, 200, 200] // [0, 0, 100, 100]
+function create_black_marker(marker_position, color = "black") {
+    const html = `<div id="black_marker" style="position: absolute; background-color: ${color};\
+    left:${marker_position[0]}; top:${marker_position[1]}; \
+    width:${marker_position[2]}px; height:${marker_position[3]}px";></div>`
+    document.querySelector("body").insertAdjacentHTML("beforeend", html)
+}
+
+function create_white_marker(marker_position, color = "white") {
+    const html = `<div id="white_marker" style="position: absolute; background-color: ${color};\
+    left:${marker_position[0]}; top:${marker_position[1]}; \
+    width:${marker_position[2]}px; height:${marker_position[3]}px";></div>`
+    document.querySelector("body").insertAdjacentHTML("beforeend", html)
+}
+
 var fakenews_instructions1 = {
     type: jsPsychHtmlButtonResponse,
     css_classes: ["trial-text"],
@@ -91,8 +107,12 @@ var fakenews_instructions1 = {
         "<p style='text-align: left'> Please read the <b>entire</b> news excerpt, and read each excerpt as you would do with a regular news article. Knowing the answer can sometimes be <b>very hard</b>, so go with your gut feelings! You can also give more or less extreme responses depending on how <b>confident</b> you are. You will be tasked to read 32 excerpts in total.</p>",
     choices: ["Ready"],
     on_load: function () {
+        create_white_marker(marker_position)
         addBackgroundGrey()
     },
+    // on_finish: function () {
+    //     document.querySelector('#white_marker').remove()
+    // },
     data: { screen: "fakenews_instructions1" },
 }
 
@@ -130,15 +150,6 @@ var fixation = {
     data: { screen: "fixation" },
 }
 
-// Marker
-var marker_position = [0, 0, 200, 200] // [0, 0, 100, 100]
-function create_marker(marker_position, color = "black") {
-    const html = `<div id="marker" style="position: absolute; background-color: ${color};\
-    left:${marker_position[0]}; top:${marker_position[1]}; \
-    width:${marker_position[2]}px; height:${marker_position[3]}px";></div>`
-    document.querySelector("body").insertAdjacentHTML("beforeend", html)
-}
-
 var fakenews_text = {
     type: jsPsychHtmlButtonResponse,
     css_classes: ["trial-text"],
@@ -151,14 +162,14 @@ var fakenews_text = {
     choices: ["I Read"],
     data: { screen: "fakenews_text" },
     on_load: function() {
-        create_marker(marker_position)
+        create_black_marker(marker_position)
         startRecording(jsPsych.timelineVariable("excerpt_num"))
         startEyeTracker(jsPsych.timelineVariable("excerpt_num"))
     },
     on_finish: function () {
         stopRecording()
         trial_number++
-        document.querySelector("#marker").remove()
+        document.querySelector("#black_marker").remove()
         pauseEyeTracker()
     },
 }
