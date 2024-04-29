@@ -89,7 +89,7 @@ function create_white_marker(marker_position, color = "white") {
     document.querySelector("body").insertAdjacentHTML("beforeend", html)
 }
 
-var fakenews_instructions1 = {
+var fakenews_instructions_start1 = {
     type: jsPsychHtmlButtonResponse,
     css_classes: ["trial-text"],
     stimulus:
@@ -113,6 +113,26 @@ var fakenews_instructions1 = {
     // on_finish: function () {
     //     document.querySelector('#white_marker').remove()
     // },
+    data: { screen: "fakenews_instructions_start1" },
+}
+
+var fakenews_instructions_start2 = {
+    type: jsPsychHtmlButtonResponse,
+    css_classes: ["trial-text"],
+    stimulus:
+        "<h1>Instructions</h1>" +
+        "<p style='text-align: left'>We will first do a practice trial before starting the actual study.</p>",
+    choices: ["Ready"],
+    data: { screen: "fakenews_instructions_start2" },
+}
+
+var fakenews_instructions1 = {
+    type: jsPsychHtmlButtonResponse,
+    css_classes: ["trial-text"],
+    stimulus:
+        "<p style='text-align: left'>You have completed the practice trial. If you have any questions, please ask the experimenter(s) before proceeding.</p>"+
+        "<p style='text-align: left'>If there are no questions, please click ready to start the study when prompted by the experimenter.</p>",
+    choices: ["Ready"],
     data: { screen: "fakenews_instructions1" },
 }
 
@@ -148,6 +168,30 @@ var fixation = {
         trial_duration: true,
     },
     data: { screen: "fixation" },
+}
+
+var fakenews_practice_text = {
+    type: jsPsychHtmlButtonResponse,
+    css_classes: ["trial-text"],
+    stimulus: function () {
+        // var title = "<h2>News " + trial_number + " / " + stimuli_list.length + "</h2>"
+        var stim =
+            "<p style='background-color: #808080'>" + " In a recent development, Singapore has observed a notable rise in urban gardening and community farming initiatives. With the rapid urbanization of the city-state, the push towards sustainable living has been gaining momentum. Community members are banding together to cultivate plots of land, often converting rooftops and unused urban spaces into productive gardens. The government, recognizing the potential benefits, has extended support by offering grants and resources for these urban farming projects. The goal is to not only promote sustainable living but also address minor concerns related to food security and self-sufficiency. Additionally, these initiatives have the added advantage of promoting social cohesion as residents come together for a common purpose. Experts in urban planning have lauded these efforts, seeing them as an innovative solution to maximize land use in the densely populated city. As the nation continues to grow, these community-driven projects may serve as a model for other cities around the world." + "</p>" + "<p style='font-size:0%'>" + 'practice' + "</p>"
+        return stim
+    },
+    choices: ["I Read"],
+    data: { screen: "fakenews_text" },
+    on_load: function() {
+        create_black_marker(marker_position)
+        startRecording(jsPsych.timelineVariable("excerpt_num"))
+        startEyeTracker(jsPsych.timelineVariable("excerpt_num"))
+    },
+    on_finish: function () {
+        stopRecording()
+        trial_number++
+        document.querySelector("#black_marker").remove()
+        pauseEyeTracker()
+    },
 }
 
 var fakenews_text = {
@@ -295,6 +339,16 @@ var fakenews_ratings_appraisal = {
 
 // Randomize ratings order between the 2 blocks (scales first, nature after or vice versa)
 // TODO: do 2 blocks with questionnaires in between
+var fakenews_practice = {
+    timeline: [
+        fixation,
+        fakenews_practice_text,
+        fixation,
+        fakenews_ratings_reality,
+        fakenews_ratings_appraisal,
+    ]
+}
+
 var fakenews_block1 = {
     timeline: [
         fixation,
