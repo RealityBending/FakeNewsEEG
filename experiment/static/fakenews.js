@@ -256,10 +256,10 @@ var fakenews_ratings_reality = {
             ticks: ticks_real,
             // required: true,
             required: true,
-            min: -1,
+            min: 0,
             max: 1,
             step: 0.01,
-            slider_start: 0,
+            slider_start: 0.5,
         },
         {
             prompt: function () {
