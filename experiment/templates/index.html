@@ -14,6 +14,12 @@
         <script src="/static/utils/plugin-survey-multi-select.js"></script>
         <script src="/static/utils/plugin-html-keyboard-response.js"></script>
         <script src="/static/utils/plugin-fullscreen.js"></script>
+        <script src="/static/utils/plugin-preload.js"></script>
+        <script src="/static/utils/multiple-slider.js"></script>
+        <script src="/static/utils/plugin-audio-button-response.js"></script>
+        <script src="/static/utils/plugin-canvas-button-response.js"></script>
+        <script src="/static/utils/extension-record-video.js"></script>
+        <script src="/static/utils/plugin-initialize-camera.js"></script>
 
         <!-- To save data via DataPipe (for online experiments) -->
         <script src="https://unpkg.com/@jspsych-contrib/plugin-pipe@0.3"></script>
@@ -31,6 +37,7 @@
         <script src="/static/questionnaires.js"></script>
         <script src="/static/joystick.js"></script>
         <script src="/static/pythonFunctions.js"></script>
+        <script src="/static/restingState.js"></script>
 
         <link href="https://unpkg.com/jspsych/css/jspsych.css" rel="stylesheet" type="text/css" />
         <style>
@@ -80,17 +87,42 @@
         timeline.push(demographics_participant_id)
         timeline.push(demographics_info)
         timeline.push(questionnaire_media_frequency)
+        timeline.push(questionnaire_news_types)
 
         // Questionnaires ======================================================
 
         // TODO: Add MIST? Conspiracy beliefs? Lie Scale?
-        var Qs = [questionnaire_bait, questionnaire_ipip6, questionnaire_pid5]
+        var Qs = [questionnaire_bait, questionnaire_ipip6, questionnaire_pid5, questionnaire_gcb, questionnaire_phq4, questionnaire_ias]
         Qs = jsPsych.randomization.shuffle(Qs) // Randomize order
 
         // Questionnaires
         timeline.push(Qs[0])
         timeline.push(Qs[1])
         timeline.push(Qs[2])
+        timeline.push(Qs[3])
+        timeline.push(Qs[4])
+        timeline.push(Qs[5])
+
+        // Resting state task
+
+        // Preload audio variables
+        var beep = ["/static/utils/beep.mp3"]
+        timeline.push({
+            type: jsPsychPreload,
+            auto_preload: true,
+            audio: beep,
+        })
+
+        // Instructions
+        timeline.push(RS_instructions)
+        // Create blank grey screen just before rest period
+        timeline.push(RS_buffer)
+        // Create blank grey screen for resting state
+        timeline.push(RS_task)
+        // Play beep
+        timeline.push(RS_beep)
+        // Add debriefing questionnaire
+        timeline.push(RS_questionnaire)
 
 
         // Fake News ===========================================================
