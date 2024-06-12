@@ -85,6 +85,20 @@ function addBackgroundGrey() {
     document.body.style.backgroundColor = "#808080"
 }
 
+var cursor_off = {
+    type: jsPsychCallFunction,
+    func: function() {
+        document.body.style.cursor= "none";
+    }
+}
+
+var cursor_on = {
+    type: jsPsychCallFunction,
+    func: function() {
+        document.body.style.cursor= "auto";
+    }
+}
+
 // Marker
 var marker_position = [0, 0, 200, 200] // [0, 0, 100, 100]
 function create_black_marker(marker_position, color = "black") {
@@ -136,7 +150,8 @@ var fakenews_instructions_start2 = {
         "<p style='text-align: left'>We will first do a practice trial before starting the actual study.</p>"+
         "<p style='text-align: left'>During each trial, we would like you to also indicate whether you think the excerpt is <b>fake</b> or <b>real</b>, and whether the excerpt is <b>human-generated</b> or <b>AI-generated</b> as you are reading the excerpt via the joystick on your left.</p>"+
         "<p style='text-align: left'>As you read the excerpt, please move the joystick in the direction simultaneously in the appropriate direction:</p>"+
-        "<p>" + joystick_config_img + "</p>",
+        "<p>" + joystick_config_img + "</p>"+
+        "<p style='text-align: left'>When you are done reading the excerpt, please press <b>SPACEBAR</b> to continue.</p>",
     choices: ["Ready"],
     data: { screen: "fakenews_instructions_start2" },
 }
@@ -148,6 +163,7 @@ var fakenews_instructions1 = {
         "<p style='text-align: left'>You have completed the practice trial. If you have any questions, please ask the experimenter(s) before proceeding.</p>"+
         "<p style='text-align: left'>Please remember to indicate your opinion on whether the excerpt you are reading is real/fake and human-/AI-generated as you are reading the excerpt."+
         "<p>" + joystick_config_img + "</p>"+
+        "<p style='text-align: left'>When you are done reading the excerpt, please press <b>SPACEBAR</b> to continue.</p>"+
         "<p style='text-align: left'>If there are no questions, please click ready to start the study when prompted by the experimenter.</p>",
     choices: ["Ready"],
     data: { screen: "fakenews_instructions1" },
@@ -188,7 +204,7 @@ var fixation = {
 }
 
 var fakenews_practice_text_1 = {
-    type: jsPsychHtmlButtonResponse,
+    type: jsPsychHtmlKeyboardResponse,
     css_classes: ["trial-text"],
     stimulus: function () {
         // var title = "<h2>News " + trial_number + " / " + stimuli_list.length + "</h2>"
@@ -196,7 +212,7 @@ var fakenews_practice_text_1 = {
             "<p style='background-color: #808080'>" + " In a recent development, Singapore has observed a notable rise in urban gardening and community farming initiatives. With the rapid urbanization of the city-state, the push towards sustainable living has been gaining momentum. Community members are banding together to cultivate plots of land, often converting rooftops and unused urban spaces into productive gardens. The government, recognizing the potential benefits, has extended support by offering grants and resources for these urban farming projects. The goal is to not only promote sustainable living but also address minor concerns related to food security and self-sufficiency. Additionally, these initiatives have the added advantage of promoting social cohesion as residents come together for a common purpose. Experts in urban planning have lauded these efforts, seeing them as an innovative solution to maximize land use in the densely populated city. As the nation continues to grow, these community-driven projects may serve as a model for other cities around the world." + "</p>" + "<p style='font-size:0%'>" + 'practice' + "</p>"
         return stim
     },
-    choices: ["I Read"],
+    choices: [" "],
     data: { screen: "fakenews_text" },
     on_load: function() {
         create_black_marker(marker_position)
@@ -212,7 +228,7 @@ var fakenews_practice_text_1 = {
 }
 
 var fakenews_practice_text_2 = {
-    type: jsPsychHtmlButtonResponse,
+    type: jsPsychHtmlKeyboardResponse,
     css_classes: ["trial-text"],
     stimulus: function () {
         // var title = "<h2>News " + trial_number + " / " + stimuli_list.length + "</h2>"
@@ -220,7 +236,7 @@ var fakenews_practice_text_2 = {
             "<p style='background-color: #808080'>" + "Danish bank Nykredit Bank has been embroiled in a money laundering scandal, sending shockwaves throughout the country well-known for its stringent and well-regulated financial system. Danish police arrested 5 individuals on Sunday, including 3 foreigners from Romania, Russia, and North Macedonia. This scandal has raised questions about Nykredit Bank's adherence to anti-money laundering rules. As of Tuesday, Nykredit Bank's stock price has fallen by 12%, its sharpest drop since the 2007-08 global financial crisis. Other Danish banks also saw their stock prices drop. Denmark's largest bank, Danske Bank, saw its stock price fall by 6%, and Jyske Bank's stock price fell by 8%. Danish authorities are currently investigating the money laundering case at Nykredit. Nykredit Bank declined to comment on the case, citing ongoing investigations by authorities. This money laundering scandal follows the rumoured allegations of Nykredit Bank being involved in Russian banking transactions, which has been outlawed by the EU since Russia's illegal invasion of Ukraine in early 2022." + "</p>" + "<p style='font-size:0%'>" + 'practice' + "</p>"
         return stim
     },
-    choices: ["I Read"],
+    choices: [" "],
     data: { screen: "fakenews_text" },
     on_load: function() {
         create_black_marker(marker_position)
@@ -236,7 +252,7 @@ var fakenews_practice_text_2 = {
 }
 
 var fakenews_text = {
-    type: jsPsychHtmlButtonResponse,
+    type: jsPsychHtmlKeyboardResponse,
     css_classes: ["trial-text"],
     stimulus: function () {
         // var title = "<h2>News " + trial_number + " / " + stimuli_list.length + "</h2>"
@@ -244,7 +260,7 @@ var fakenews_text = {
             "<p style='background-color: #808080'>" + jsPsych.timelineVariable("stimulus") + "</p>" + "<p style='font-size:0%'>" + jsPsych.timelineVariable("excerpt_num") + "</p>"
         return stim
     },
-    choices: ["I Read"],
+    choices: [" "],
     data: { screen: "fakenews_text" },
     on_load: function() {
         create_black_marker(marker_position)
@@ -382,14 +398,18 @@ var fakenews_ratings_appraisal = {
 // TODO: do 2 blocks with questionnaires in between
 var fakenews_practice = {
     timeline: [
+        cursor_off,
         fixation,
         fakenews_practice_text_1,
         fixation,
+        cursor_on,
         fakenews_ratings_reality,
         fakenews_ratings_appraisal,
+        cursor_off,
         fixation,
         fakenews_practice_text_2,
         fixation,
+        cursor_on,
         fakenews_ratings_reality,
         fakenews_ratings_appraisal,
     ]
@@ -397,9 +417,11 @@ var fakenews_practice = {
 
 var fakenews_block1 = {
     timeline: [
+        cursor_off,
         fixation,
         fakenews_text,
         fixation,
+        cursor_on,
         // fakenews_questions,
         fakenews_ratings_reality,
         fakenews_ratings_appraisal,
@@ -410,9 +432,11 @@ var fakenews_block1 = {
 
 var fakenews_block2 = {
     timeline: [
+        cursor_off,
         fixation,
         fakenews_text,
         fixation,
+        cursor_on,
         // fakenews_questions,
         fakenews_ratings_reality,
         fakenews_ratings_appraisal,
