@@ -9,7 +9,7 @@ version = "1.0"
 // Resting state duration in min
 duration = 8
 // [x, y, width, height] in pixels. Set to [0, 0, 0, 0] to disable.
-marker_position = [0, 0, 200, 200]
+marker_position = [0, 50, 100, 150]
 // Are all the questions from the debriefing required?
 questions_required = false
 // Record webcam?

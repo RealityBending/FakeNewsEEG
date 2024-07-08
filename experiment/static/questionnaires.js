@@ -1,5 +1,6 @@
 var questionnaire_media_frequency = {
     type: jsPsychSurveyMultiChoice,
+    css_classes: "questionnaire-text",
     preamble:
         "<br><p><b>We would like to understand more about how your news reading habits.</b></p>" +
         "<p><b>How often do you watch/read <i>news</i> using each of the following?</b></p>",
@@ -146,6 +147,7 @@ var questionnaire_media_frequency = {
 
 var questionnaire_news_types = {
     type: jsPsychSurveyMultiSelect,
+    css_classes: "questionnaire-text",
     questions: [
         {
             prompt: "<b>Which of the following types of news are you most interested in?</b>",
@@ -220,6 +222,7 @@ function PHQ4(
 
 var questionnaire_phq4 = {
     type: jsPsychSurveyLikert,
+    css_classes: "questionnaire-text",
     questions: PHQ4((required = true)),
     randomize_question_order: false,
     preamble: PHQ4_instructions,
@@ -311,6 +314,7 @@ function IAS(
 
 var questionnaire_ias = {
     type: jsPsychSurveyLikert,
+    css_classes: "questionnaire-text",
     questions: IAS((required = true)),
     randomize_question_order: true,
     preamble: ias_instructions,
@@ -390,6 +394,7 @@ function GCB(
 
 var questionnaire_gcb = {
     type: jsPsychSurveyLikert,
+    css_classes: "questionnaire-text",
     questions: GCB((required = true)),
     randomize_question_order: true,
     preamble: GCB_instructions,
@@ -484,6 +489,7 @@ var bait_ticks = ["Disagree", "Agree"] // In Schepman et al. (2022) they removed
 // BAIT 2.0
 var questionnaire_bait = {
     type: jsPsychMultipleSlider,
+    css_classes: "questionnaire-text",
     questions: format_questions_analog(
         bait_items,
         bait_dimensions,
@@ -503,6 +509,7 @@ var questionnaire_bait = {
 // Most of the variables are loaded from online by the script
 var questionnaire_ipip6 = {
     type: jsPsychMultipleSlider,
+    css_classes: "questionnaire-text",
     questions: ipip6((required = true)),
     randomize_question_order: false,
     preamble: ipip6_instructions,
@@ -516,6 +523,7 @@ var questionnaire_ipip6 = {
 // Create questionnaire variable
 var questionnaire_pid5 = {
     type: jsPsychSurveyLikert,
+    css_classes: "questionnaire-text",
     questions: pid5((required = true)),
     randomize_question_order: true,
     preamble: pid5_instructions,

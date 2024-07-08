@@ -100,17 +100,17 @@ var cursor_on = {
 }
 
 // Marker
-var marker_position = [0, 0, 200, 200] // [0, 0, 100, 100]
+var marker_position = [0, 50, 100, 150] // [0, 0, 100, 100]
 function create_black_marker(marker_position, color = "black") {
     const html = `<div id="black_marker" style="position: absolute; background-color: ${color};\
-    left:${marker_position[0]}; top:${marker_position[1]}; \
+    left:${marker_position[0]}px; top:${marker_position[1]}px; \
     width:${marker_position[2]}px; height:${marker_position[3]}px";></div>`
     document.querySelector("body").insertAdjacentHTML("beforeend", html)
 }
 
 function create_white_marker(marker_position, color = "white") {
     const html = `<div id="white_marker" style="position: absolute; background-color: ${color};\
-    left:${marker_position[0]}; top:${marker_position[1]}; \
+    left:${marker_position[0]}px; top:${marker_position[1]}px; \
     width:${marker_position[2]}px; height:${marker_position[3]}px";></div>`
     document.querySelector("body").insertAdjacentHTML("beforeend", html)
 }
@@ -426,7 +426,7 @@ var fakenews_block1 = {
         fakenews_ratings_reality,
         fakenews_ratings_appraisal,
     ],
-    timeline_variables: stimuli_list.slice(0, 16),
+    timeline_variables: stimuli_list.slice(0, 20),
     randomize_order: true,
 }
 
@@ -441,6 +441,6 @@ var fakenews_block2 = {
         fakenews_ratings_reality,
         fakenews_ratings_appraisal,
     ],
-    timeline_variables: stimuli_list.slice(16, 32),
+    timeline_variables: stimuli_list.slice(20, 40),
     randomize_order: true,
 }

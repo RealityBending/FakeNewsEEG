@@ -175,6 +175,7 @@ var demographics_paynow = {
 // Demographic info ========================================================================
 var demographics_multichoice = {
     type: jsPsychSurveyMultiChoice,
+    css_classes: "narrow-text",
     preamble: "<b>Please answer the following questions:</b>",
     questions: [
         {
