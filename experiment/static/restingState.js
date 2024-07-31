@@ -81,11 +81,22 @@ var check_items = [
     "I was able to rate the statements above",
 ]
 
+var eye_calibration_instructions = {
+    type: jsPsychHtmlButtonResponse,
+    stimulus:
+        "<p><b>Instructions</b></p>" +
+        // Don't give exact time so that participants don't count
+        "<p><b>DO NOT PROCEED UNTIL INSTRUCTED BY THE EXPERIMENTER!</b></p>" +
+        "<p>We will first conduct a preliminary eye-tracking calibration before proceeding. Please follow the experimenter's instructions.</p>",
+    choices: ["Continue"],
+}
+
 var RS_instructions = {
     type: jsPsychHtmlButtonResponse,
     stimulus:
         "<p><b>Instructions</b></p>" +
         // Don't give exact time so that participants don't count
+        "<p><b>DO NOT PROCEED UNTIL INSTRUCTED BY THE EXPERIMENTER!</b></p>" +
         "<p>A rest period of approximately 10 minutes is about to start.</p>" +
         "<p>Simply <b>relax</b> and remain seated quietly with your eyes closed. Please try <b>not to fall asleep</b>.</p> " +
         "<p>Once the resting period is over, you will hear a beep. You can then open your eyes and proceed.</p>" +

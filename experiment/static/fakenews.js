@@ -58,23 +58,18 @@ var ticks_real = shuffleArray(["Real", "Fake"])
 console.log(ticks_real)
 if (ticks_real[1] == "Real") {
     var ticks_real_type = "Positive_Real"
+    var joystick_config_img = "<img src='/static/utils/joystick-pos-real.png' height = '300px'>"
 } else {
     var ticks_real_type = "Positive_Fake"
+    var joystick_config_img = "<img src='/static/utils/joystick-pos-fake.png' height = '300px'>"
 }
 var ticks_ai = shuffleArray(["Human", "AI"])
 console.log(ticks_ai)
+
 if (ticks_ai[1] == "Human") {
     var ticks_ai_type = "Positive_Human"
-    if (ticks_real[1] == "Real")
-        var joystick_config_img = "<img src='/static/utils/joystick-pos-human-real.png' height = '300px'>"
-    else 
-        var joystick_config_img = "<img src='/static/utils/joystick-pos-human-fake.png' height = '300px'>"
 } else {
     var ticks_ai_type = "Positive_AI"
-    if (ticks_real[1] == "Real")
-        var joystick_config_img = "<img src='/static/utils/joystick-pos-AI-real.png' height = '300px'>"
-    else 
-        var joystick_config_img = "<img src='/static/utils/joystick-pos-AI-fake.png' height = '300px'>"
 }
 
 
@@ -148,8 +143,8 @@ var fakenews_instructions_start2 = {
     stimulus:
         "<h1>Instructions</h1>" +
         "<p style='text-align: left'>We will first do a practice trial before starting the actual study.</p>"+
-        "<p style='text-align: left'>During each trial, we would like you to also indicate whether you think the excerpt is <b>fake</b> or <b>real</b>, and whether the excerpt is <b>human-generated</b> or <b>AI-generated</b> as you are reading the excerpt via the joystick on your left.</p>"+
-        "<p style='text-align: left'>As you read the excerpt, please move the joystick in the direction simultaneously in the appropriate direction:</p>"+
+        "<p style='text-align: left'>During each trial, we would like you to also indicate whether you think the excerpt is <b>fake</b> or <b>real</b> as you are reading the excerpt via the joystick on your left.</p>"+
+        "<p style='text-align: left'><b>As you read the excerpt, please move the joystick in the direction simultaneously in the appropriate direction:</b></p>"+
         "<p>" + joystick_config_img + "</p>"+
         "<p style='text-align: left'>When you are done reading the excerpt, please press <b>SPACEBAR</b> to continue.</p>",
     choices: ["Ready"],
@@ -161,7 +156,7 @@ var fakenews_instructions1 = {
     css_classes: ["trial-text"],
     stimulus:
         "<p style='text-align: left'>You have completed the practice trial. If you have any questions, please ask the experimenter(s) before proceeding.</p>"+
-        "<p style='text-align: left'>Please remember to indicate your opinion on whether the excerpt you are reading is real/fake and human-/AI-generated as you are reading the excerpt."+
+        "<p style='text-align: left'>Please remember to indicate your opinion on whether the excerpt you are reading is real/fake as you are reading the excerpt."+
         "<p>" + joystick_config_img + "</p>"+
         "<p style='text-align: left'>When you are done reading the excerpt, please press <b>SPACEBAR</b> to continue.</p>"+
         "<p style='text-align: left'>If there are no questions, please click ready to start the study when prompted by the experimenter.</p>",
@@ -174,7 +169,9 @@ var fakenews_instructions2 = {
     type: jsPsychHtmlButtonResponse,
     css_classes: ["trial-text"],
     stimulus:
-        "<p> You have completed the first half of the study. We will perform another re-calibration of the eye-tracker.</p><br />When instructed by the experimenter, please click 'Ready' to continue with the second half of the study.",
+        "<p> You have completed the first half of the study.</p>" +
+        "<p><b>DO NOT PROCEED UNTIL INSTRUCTED BY THE EXPERIMENTER!</b></p>" +
+        "<p>We will perform another re-calibration of the eye-tracker.</p><br />",
     choices: ["Ready"],
     data: { screen: "fakenews_instructions2" },
 }
