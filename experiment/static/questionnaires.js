@@ -533,3 +533,13 @@ var questionnaire_pid5 = {
         screen: "questionnaire_pid5",
     },
 }
+
+// End of questionnaires
+var questionnaire_end = {
+    type: jsPsychHtmlButtonResponse,
+    stimulus:
+        "<p><b>Instructions</b></p>" +
+        "<p><b>DO NOT PROCEED UNTIL INSTRUCTED BY THE EXPERIMENTER!</b></p>" +
+        "<p>Thank you for completing the questionnaires. You may relax while the EEG gel application is being done.</p>",
+    choices: ["Continue"],
+}

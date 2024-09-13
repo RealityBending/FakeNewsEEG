@@ -111,8 +111,9 @@
         timeline.push(Qs[3])
         timeline.push(Qs[4])
         timeline.push(Qs[5])
+        timeline.push(questionnaire_end)
 
-        // Resting state task
+        
 
         // Preload audio variables
         var beep = ["/static/utils/beep.mp3"]
@@ -121,6 +122,10 @@
             auto_preload: true,
             audio: beep,
         })
+
+        timeline.push(eye_calibration_instructions)
+
+        // Resting state task
 
         // Instructions
         timeline.push(RS_instructions)

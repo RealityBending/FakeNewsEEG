@@ -58,23 +58,18 @@ var ticks_real = shuffleArray(["Real", "Fake"])
 console.log(ticks_real)
 if (ticks_real[1] == "Real") {
     var ticks_real_type = "Positive_Real"
+    var joystick_config_img = "<img src='/static/utils/joystick-pos-real.png' height = '300px'>"
 } else {
     var ticks_real_type = "Positive_Fake"
+    var joystick_config_img = "<img src='/static/utils/joystick-pos-fake.png' height = '300px'>"
 }
 var ticks_ai = shuffleArray(["Human", "AI"])
 console.log(ticks_ai)
+
 if (ticks_ai[1] == "Human") {
     var ticks_ai_type = "Positive_Human"
-    if (ticks_real[1] == "Real")
-        var joystick_config_img = "<img src='/static/utils/joystick-pos-human-real.png' height = '300px'>"
-    else 
-        var joystick_config_img = "<img src='/static/utils/joystick-pos-human-fake.png' height = '300px'>"
 } else {
     var ticks_ai_type = "Positive_AI"
-    if (ticks_real[1] == "Real")
-        var joystick_config_img = "<img src='/static/utils/joystick-pos-AI-real.png' height = '300px'>"
-    else 
-        var joystick_config_img = "<img src='/static/utils/joystick-pos-AI-fake.png' height = '300px'>"
 }
 
 
@@ -148,8 +143,8 @@ var fakenews_instructions_start2 = {
     stimulus:
         "<h1>Instructions</h1>" +
         "<p style='text-align: left'>We will first do a practice trial before starting the actual study.</p>"+
-        "<p style='text-align: left'>During each trial, we would like you to also indicate whether you think the excerpt is <b>fake</b> or <b>real</b>, and whether the excerpt is <b>human-generated</b> or <b>AI-generated</b> as you are reading the excerpt via the joystick on your left.</p>"+
-        "<p style='text-align: left'>As you read the excerpt, please move the joystick in the direction simultaneously in the appropriate direction:</p>"+
+        "<p style='text-align: left'>During each trial, we would like you to also indicate whether you think the excerpt is <b>fake</b> or <b>real</b> as you are reading the excerpt via the joystick on your left.</p>"+
+        "<p style='text-align: left'><b>As you read the excerpt, please move the joystick in the direction simultaneously in the appropriate direction:</b></p>"+
         "<p>" + joystick_config_img + "</p>"+
         "<p style='text-align: left'>When you are done reading the excerpt, please press <b>SPACEBAR</b> to continue.</p>",
     choices: ["Ready"],
@@ -161,7 +156,7 @@ var fakenews_instructions1 = {
     css_classes: ["trial-text"],
     stimulus:
         "<p style='text-align: left'>You have completed the practice trial. If you have any questions, please ask the experimenter(s) before proceeding.</p>"+
-        "<p style='text-align: left'>Please remember to indicate your opinion on whether the excerpt you are reading is real/fake and human-/AI-generated as you are reading the excerpt."+
+        "<p style='text-align: left'>Please remember to indicate your opinion on whether the excerpt you are reading is real/fake as you are reading the excerpt."+
         "<p>" + joystick_config_img + "</p>"+
         "<p style='text-align: left'>When you are done reading the excerpt, please press <b>SPACEBAR</b> to continue.</p>"+
         "<p style='text-align: left'>If there are no questions, please click ready to start the study when prompted by the experimenter.</p>",
@@ -174,7 +169,9 @@ var fakenews_instructions2 = {
     type: jsPsychHtmlButtonResponse,
     css_classes: ["trial-text"],
     stimulus:
-        "<p> You have completed the first half of the study. We will perform another re-calibration of the eye-tracker.</p><br />When instructed by the experimenter, please click 'Ready' to continue with the second half of the study.",
+        "<p> You have completed the first half of the study.</p>" +
+        "<p><b>DO NOT PROCEED UNTIL INSTRUCTED BY THE EXPERIMENTER!</b></p>" +
+        "<p>We will perform another re-calibration of the eye-tracker.</p><br />",
     choices: ["Ready"],
     data: { screen: "fakenews_instructions2" },
 }
@@ -209,7 +206,7 @@ var fakenews_practice_text_1 = {
     stimulus: function () {
         // var title = "<h2>News " + trial_number + " / " + stimuli_list.length + "</h2>"
         var stim =
-            "<p style='background-color: #808080'>" + " In a recent development, Singapore has observed a notable rise in urban gardening and community farming initiatives. With the rapid urbanization of the city-state, the push towards sustainable living has been gaining momentum. Community members are banding together to cultivate plots of land, often converting rooftops and unused urban spaces into productive gardens. The government, recognizing the potential benefits, has extended support by offering grants and resources for these urban farming projects. The goal is to not only promote sustainable living but also address minor concerns related to food security and self-sufficiency. Additionally, these initiatives have the added advantage of promoting social cohesion as residents come together for a common purpose. Experts in urban planning have lauded these efforts, seeing them as an innovative solution to maximize land use in the densely populated city. As the nation continues to grow, these community-driven projects may serve as a model for other cities around the world." + "</p>" + "<p style='font-size:0%'>" + 'practice' + "</p>"
+            "<p style='background-color: #808080'>" + " In a recent development, Singapore has observed a notable rise in urban gardening and community farming initiatives. With the rapid urbanization of the city-state, the push towards sustainable living has been gaining momentum. Community members are banding together to cultivate plots of land, often converting rooftops and unused urban spaces into productive gardens. The government, recognizing the potential benefits, has extended support by offering grants and resources for these urban farming projects. The goal is to not only promote sustainable living but also address minor concerns related to food security and self-sufficiency. Additionally, these initiatives have the added advantage of promoting social cohesion as residents come together for a common purpose. Experts in urban planning have lauded these efforts, seeing them as an innovative solution to maximize land use in the densely populated city. As the nation continues to grow, these community-driven projects may serve as a model for other cities around the world." + "</p>" + "<p style='font-size:0%'>" + 'practice1' + "</p>"
         return stim
     },
     choices: [" "],
@@ -233,7 +230,7 @@ var fakenews_practice_text_2 = {
     stimulus: function () {
         // var title = "<h2>News " + trial_number + " / " + stimuli_list.length + "</h2>"
         var stim =
-            "<p style='background-color: #808080'>" + "Danish bank Nykredit Bank has been embroiled in a money laundering scandal, sending shockwaves throughout the country well-known for its stringent and well-regulated financial system. Danish police arrested 5 individuals on Sunday, including 3 foreigners from Romania, Russia, and North Macedonia. This scandal has raised questions about Nykredit Bank's adherence to anti-money laundering rules. As of Tuesday, Nykredit Bank's stock price has fallen by 12%, its sharpest drop since the 2007-08 global financial crisis. Other Danish banks also saw their stock prices drop. Denmark's largest bank, Danske Bank, saw its stock price fall by 6%, and Jyske Bank's stock price fell by 8%. Danish authorities are currently investigating the money laundering case at Nykredit. Nykredit Bank declined to comment on the case, citing ongoing investigations by authorities. This money laundering scandal follows the rumoured allegations of Nykredit Bank being involved in Russian banking transactions, which has been outlawed by the EU since Russia's illegal invasion of Ukraine in early 2022." + "</p>" + "<p style='font-size:0%'>" + 'practice' + "</p>"
+            "<p style='background-color: #808080'>" + "Danish bank Nykredit Bank has been embroiled in a money laundering scandal, sending shockwaves throughout the country well-known for its stringent and well-regulated financial system. Danish police arrested 5 individuals on Sunday, including 3 foreigners from Romania, Russia, and North Macedonia. This scandal has raised questions about Nykredit Bank's adherence to anti-money laundering rules. As of Tuesday, Nykredit Bank's stock price has fallen by 12%, its sharpest drop since the 2007-08 global financial crisis. Other Danish banks also saw their stock prices drop. Denmark's largest bank, Danske Bank, saw its stock price fall by 6%, and Jyske Bank's stock price fell by 8%. Danish authorities are currently investigating the money laundering case at Nykredit. Nykredit Bank declined to comment on the case, citing ongoing investigations by authorities. This money laundering scandal follows the rumoured allegations of Nykredit Bank being involved in Russian banking transactions, which has been outlawed by the EU since Russia's illegal invasion of Ukraine in early 2022." + "</p>" + "<p style='font-size:0%'>" + 'practice2' + "</p>"
         return stim
     },
     choices: [" "],
